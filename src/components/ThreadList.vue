@@ -6,11 +6,13 @@
       <div v-for="thread in threads" :key="thread.id" class="thread">
         <div>
           <p>
-            <a href="#">{{ thread.title }}</a>
+            <router-link :to="{ name: 'ThreadShow', params: { id: thread.id } }">{{
+              thread.title
+            }}</router-link>
           </p>
           <p class="text-faded text-xsmall">
             By <a href="#">{{ userById(thread.userId).name }}</a
-            >, {{ thread.publishedAt }}.
+            >, <AppDate :timestamp="thread.publishedAt" />.
           </p>
         </div>
 
@@ -23,7 +25,9 @@
             <p class="text-xsmall">
               <a href="#">{{ userById(thread.userId).name }}</a>
             </p>
-            <p class="text-xsmall text-faded">{{ thread.publishedAt }}</p>
+            <p class="text-xsmall text-faded">
+              <AppDate :timestamp="thread.publishedAt" />
+            </p>
           </div>
         </div>
       </div>
@@ -32,7 +36,8 @@
 </template>
 
 <script setup lang="ts">
-import sourceData from "../data.json";
+import sourceData from "@/data.json";
+import AppDate from "@/components/AppDate.vue";
 
 defineProps({
   threads: {

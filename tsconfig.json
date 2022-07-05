@@ -2,8 +2,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "jsx": "preserve",
+    "resolveJsonModule": true,
     "paths": {
       "@/*": ["./src/*"],
+      "~/*": ["./src/*"],
     }
   },
   "exclude": [

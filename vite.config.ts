@@ -6,6 +6,7 @@ import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import UnoCSS from 'unocss/vite'
 import { presetUno, presetAttributify, presetIcons } from 'unocss'
+import path = require('path')
 
 export default defineConfig({
   plugins: [
@@ -32,6 +33,11 @@ export default defineConfig({
       ]
     })
   ],
+  resolve: {
+    alias: {
+      '@/': `${path.resolve(__dirname, 'src')}/`
+    }
+  },
   histoire: {
     // config
   }
