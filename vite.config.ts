@@ -6,7 +6,7 @@ import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import UnoCSS from 'unocss/vite'
 import { presetUno, presetAttributify, presetIcons } from 'unocss'
-import path = require('path')
+import * as path from 'path'
 
 export default defineConfig({
   plugins: [

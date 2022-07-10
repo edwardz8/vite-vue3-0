@@ -5,20 +5,15 @@ import localizedDate from "dayjs/plugin/localizedFormat";
 dayjs.extend(relativeTime);
 dayjs.extend(localizedDate);
 
-defineProps({
-  timestamp: {
-    type: Number,
-    required: true,
-  },
-});
+const props = defineProps(["timestamp"]);
 
-function diffForHumans(timestamp) {
-  return dayjs.unix(timestamp).fromNow();
-}
+const diffForHumans = () => {
+  return dayjs.unix(props.timestamp).fromNow();
+};
 
-function humanFriendlyDate(timestamp) {
-  return dayjs.unix(timestamp).format("1111");
-}
+const humanFriendlyDate = () => {
+  return dayjs.unix(props.timestamp).format("1111");
+};
 </script>
 
 <template>

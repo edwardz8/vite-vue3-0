@@ -9,31 +9,33 @@
 </template>
 
 <script setup lang="ts">
-import sourceData from "@/data.json";
+import { useStore } from "@/store/index";
 import PostList from "@/components/PostList.vue";
 
-const props = defineProps({
-  id: String,
-});
+const store = useStore();
 
-const threads = reactive(sourceData.threads);
-const posts = reactive(sourceData.posts);
+const props = defineProps(["id"]);
+
+// const threads = reactive(sourceData.threads);
+// const posts = reactive(sourceData.posts);
+
+const threads = computed(() => store.data.threads);
+
+const posts = computed(() => store.data.posts);
 
 const thread = computed(() => {
-  return threads.find((thread) => thread.id === props.id);
+  return threads.value.find((thread) => thread.id === props.id);
 });
 
 const threadPosts = computed(() => {
-  return posts.filter((post) => post.threadId === props.id);
+  return posts.value.filter((post) => post.threadId === props.id);
 });
 
-function addPost(eventData) {
+const addPost = (eventData) => {
   const post = {
     ...eventData.post,
-    threadId: props.id 
+    threadId: props.id,
   };
-
-  posts.push(post);
-  thread.posts.push(post.id);
-}
+  store.createPost(post);
+};
 </script>

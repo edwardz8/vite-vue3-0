@@ -27,8 +27,10 @@
 </template>
 
 <script setup lang="ts">
-import sourceData from "@/data.json";
-import AppDate from '@/components/AppDate.vue'
+import { useStore } from "@/store/index";
+import AppDate from "@/components/AppDate.vue";
+
+const store = useStore();
 
 defineProps({
   posts: {
@@ -37,10 +39,9 @@ defineProps({
   },
 });
 
-const users = reactive(sourceData.users);
+const users = computed(() => store.data.users);
 
 function userById(userId) {
-  return users.find((p) => p.id === userId);
+  return users.value.find((p) => p.id === userId);
 }
-
 </script>

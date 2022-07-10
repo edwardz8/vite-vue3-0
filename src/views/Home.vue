@@ -1,11 +1,13 @@
 <template>
-  <h1>Welcome to the Forum</h1>
-  <ForumList :forums="forums" />
+  <h1 class="push-top">Welcome to the Forum</h1>
+  <CategoryList :categories="categories" />
 </template>
 
 <script setup lang="ts">
-import sourceData from "@/data.json";
-import ForumList from "@/components/ForumList.vue";
+import { useStore } from "@/store/index";
+import CategoryList from "@/components/CategoryList.vue";
 
-const forums = reactive(sourceData.forums);
+const store = useStore();
+
+const categories = computed(() => store.data.categories);
 </script>

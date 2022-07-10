@@ -5,17 +5,13 @@ const emit = defineEmits(["save"]);
 // if more than one emit event in single component
 // (e: "save", value: string): void;
 
-function save() {
-  const postId = "ggqq" + Math.random();
+const save = () => {
   const post = {
-    id: postId,
-    text: text,
-    publishedAt: Math.floor(Date.now() / 1000),
-    userId: "rpbB8C6ifrYmNDufMERWfQUoa202",
+    text: text.value,
   };
   emit("save", { post });
-  text = "";
-}
+  text.value = "";
+};
 </script>
 
 <template>

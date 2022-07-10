@@ -1,19 +1,43 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 import Home from '@/views/Home.vue'
-import Forum from '@/views/Forum.vue'
 import ThreadShow from '@/views/ThreadShow.vue'
+import threadCreate from '@/views/ThreadCreate.vue'
+import Forum from '@/views/Forum.vue'
+import Category from '@/views/Category.vue'
+import Profile from '@/views/Profile.vue'
 import Index from '@/views/Index.vue'
 import NotFound from '@/components/NotFound.vue'
-// import sourceData from '../data.json'
-import * as sourceData from '../data.json'
 
-const routes = [
+import * as sourceData from '@/data.json'
+
+const routes: Array<RouteRecordRaw> = [
     {
         path: '/', name: 'Home', component: Home
     },
     {
         path: '/index', name: 'Index', component: Index
+    },
+    {
+        path: '/category/:id', name: 'Category', component: Category, props: true
+    },
+    {
+        path: '/me', name: 'Profile', component: Profile, /* meta: { toTop: scroll, smoothScroll: true} */
+    },
+    {
+        path: '/me/edit', name: 'ProfileEdit', component: Profile, props: { edit: true }
+    },
+    {
+        path: '/forum/:id',
+        name: 'Forum',
+        component: Forum,
+        props: true
+    },
+    {
+        path: '/form/:forumId/thread/create',
+        name: 'ThreadCreate',
+        component: threadCreate,
+        props: true
     },
     {
         path: '/thread/:id',
@@ -25,7 +49,7 @@ const routes = [
             const threadExists = sourceData.threads.find(thread => thread.id === to.params.id)
             // if exists continue
             if (threadExists) {
-                return next()
+                next()
             } else {
                 next({
                     name: 'NotFound',
@@ -39,12 +63,6 @@ const routes = [
         }
     },
     {
-        path: '/forum/:id',
-        name: 'Forum',
-        component: Forum,
-        props: true
-    },
-    {
         path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound
     }
 
@@ -52,7 +70,13 @@ const routes = [
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
+    /* scrollBehavior(to) {
+        const scroll = {}
+        if (to.meta.toTop) scroll.top = 0;
+        if (to.meta.smoothScroll) scroll.behavior = "smooth"
+        return scroll
+    } */
 })
 
 export default router

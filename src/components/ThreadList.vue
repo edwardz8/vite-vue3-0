@@ -36,8 +36,10 @@
 </template>
 
 <script setup lang="ts">
-import sourceData from "@/data.json";
+import { useStore } from "@/store/index";
 import AppDate from "@/components/AppDate.vue";
+
+const store = useStore();
 
 defineProps({
   threads: {
@@ -46,15 +48,15 @@ defineProps({
   },
 });
 
-const posts = reactive(sourceData.posts);
-const users = reactive(sourceData.users);
+const posts = computed(() => store.data.posts);
+const users = computed(() => store.data.users);
 
 function postById(postId) {
-  return posts.find((p) => p.id === postId);
+  return posts.value.find((p) => p.id === postId);
 }
 
 function userById(userId) {
-  return users.find((p) => p.id === userId);
+  return users.value.find((p) => p.id === userId);
 }
 </script>
 
