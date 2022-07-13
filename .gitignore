@@ -28,3 +28,5 @@ coverage
 *.sw?
 
 serviceAccount.json 
+firebase.js 
+src/firebase.js 
